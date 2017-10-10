@@ -9,13 +9,13 @@ import { UserService } from './com_services/user.service';
 import { ReactiveFormsModule,FormsModule } from '@angular/forms';  // <-- #1 import 
 import { AppRouting } from './app.routing';
 
-
+import { ReservationModule } from './reservation/reservation.module';
 import { LoadItemsComponent } from './mod_common/load-items/load-items.component';
 @NgModule({
   declarations: [
     AppComponent,LoadItemsComponent
   ],
-  imports: [AppRouting,
+  imports: [AppRouting,ReservationModule,
     ReactiveFormsModule,FormsModule,
     BrowserModule,HttpModule
   ],
