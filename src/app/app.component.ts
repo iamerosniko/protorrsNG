@@ -15,8 +15,6 @@ export class AppComponent {
   
   appModules:ApplicationGroupModules;
   constructor(private api:UserService,private fb: FormBuilder){
-    this.sample();
-    this.createForm();
   }
   users:Users[]=[];
   // user:Users={UserName:'blanlui',IsActive:true,UserFirstName:'Luis Alfredo',UserLastName:'Blanco',UserMiddleName:'Borja'};

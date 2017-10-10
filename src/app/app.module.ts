@@ -7,12 +7,15 @@ import { ApiService } from './com_services/api-service';
 import { UserService } from './com_services/user.service';
 
 import { ReactiveFormsModule,FormsModule } from '@angular/forms';  // <-- #1 import 
+import { AppRouting } from './app.routing';
 
+
+import { LoadItemsComponent } from './mod_common/load-items/load-items.component';
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,LoadItemsComponent
   ],
-  imports: [
+  imports: [AppRouting,
     ReactiveFormsModule,FormsModule,
     BrowserModule,HttpModule
   ],
