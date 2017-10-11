@@ -4,7 +4,7 @@ import { LoadItemsComponent } from './mod_common/load-items/load-items.component
 import { ReservationComponent } from './reservation/reservation.component';
 const appRoutes: Routes = [
     
-    { path: '', redirectTo: '/loadAccess', pathMatch: 'full' },
+    { path: '', redirectTo: '/reservation', pathMatch: 'full' },
     { path: 'reservation',component:ReservationComponent },
     { path: 'loadAccess', component :LoadItemsComponent }
 ];
