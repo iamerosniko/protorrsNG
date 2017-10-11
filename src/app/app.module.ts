@@ -4,7 +4,7 @@ import { AppComponent } from './app.component';
 import { HttpModule} from '@angular/http';
 import { ApiService } from './com_services/api-service';
 
-import { UserService } from './com_services/user.service';
+// import { UserService } from './com_services/user.service';
 
 import { ReactiveFormsModule,FormsModule } from '@angular/forms';  // <-- #1 import 
 import { AppRouting } from './app.routing';
@@ -19,7 +19,7 @@ import { LoadItemsComponent } from './mod_common/load-items/load-items.component
     ReactiveFormsModule,FormsModule,
     BrowserModule,HttpModule
   ],
-  providers: [ApiService,UserService],
+  providers: [ApiService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

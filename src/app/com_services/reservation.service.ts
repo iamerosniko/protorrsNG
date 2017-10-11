@@ -11,6 +11,7 @@ export interface Reservation{
     Players ?: string,
     Amount ?: number,
     TimeElapse ?: number,
+    UserName?: string
 }
 
 @Injectable()
