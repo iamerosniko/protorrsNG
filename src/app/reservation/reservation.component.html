@@ -11,7 +11,6 @@
                         <thead>
                             <tr>
                                 <!--<th>Associate Id</th>-->
-                                <th *ngIf="false">ReservationID</th>
                                 <th>TimeSlot</th>
                                 <th>TeamName</th>
                                 <th># of Players</th>
@@ -21,12 +20,11 @@
                         </thead>
                         <tbody>
                             <!-- <tr *ngFor="let x of associates | paginate: { itemsPerPage: 10, currentPage: p }"> -->
-                            <tr *ngFor="let x of timeSlots | paginate: { itemsPerPage: 7, currentPage: p }">
-                                <td *ngIf="false"></td>
-                                <td>{{x.time}}</td>
-                                <td><input type="text"/></td>
+                            <tr *ngFor="let x of reservations | paginate: { itemsPerPage: 7, currentPage: p }">
+                                <td><input name="selectTimeslot" [value]="x.ReservationID" [(ngModel)]="selectedTimeslot" type="radio"/><label>{{x.TimeSlot}}</label></td>
+                                <td><input [disabled]="selectedTimeslot!=x.ReservationID"  type="text" [(ngModel)]="x.TeamName"/></td>
                                 <td>
-                                    <select class="form-control input-sm" >
+                                    <select [disabled]="selectedTimeslot!=x.ReservationID"  class="form-control input-sm" >
                                         <option value=""  disabled selected>--Select--</option>
                                         <option value="2"> 2 </option>
                                         <option value="3"> 3 </option>
@@ -36,7 +34,7 @@
                                 </td>
                                 <td>200</td>
                                 <td>
-                                    <button class="btn btn-primary">Reserve</button>
+                                    <button class="btn btn-primary" [disabled]="selectedTimeslot!=x.ReservationID" >Reserve</button>
                                     <!-- <div class="btn-group">
                                         <a  class="btn btn-default btn-xs" data-toggle="tab" data-target="#asc_editor" title="Edit"><i class="fa fa-edit"></i></a>
                                         <a  class="btn btn-default btn-xs" title="Delete"><i class="fa fa-trash"></i></a>

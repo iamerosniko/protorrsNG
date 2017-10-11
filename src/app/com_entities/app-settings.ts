@@ -1,5 +1,6 @@
 export class AppSettings {
-    public static CURRENT_URL = "http://protoreservation.azurewebsites.net/api/Reservations/api/"
+    public static CURRENT_URL = "http://localhost:61294/api/"
+    //"http://protoreservation.azurewebsites.net/api/Reservations/api/"
     
     public static GETAPIURL(controller:string):string{
         return this.CURRENT_URL+controller;
