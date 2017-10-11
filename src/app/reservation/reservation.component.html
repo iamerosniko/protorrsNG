@@ -1,10 +1,23 @@
 <div class="tab-content">
-
-    <input type="radio"  /><label>Mystery Room </label>
-    <input type="radio"  /><label>Breakout Room </label>s
     <div id="asc_default" class="tab-pane fade in active">
-        <div class="col-md-12">
+        <div class="container">
+            <br />
+            <div class="row">
+                <div class="col-md-3">
+                    <label>Select Room: </label>
+                </div>
+                <div class="col-md-3">
+                    <label><input type="radio" name="selectedRoom" value="Mystery Room" (change)="filterRoom()" [(ngModel)]="selectedRoom" />Mystery Room </label>
+                </div>
+                <div class="col-md-3">
+                    <label><input type="radio" name="selectedRoom" value="Breakout Room" (change)="filterRoom()" [(ngModel)]="selectedRoom" />Breakout Room </label>
+                </div>
+            </div>
+            <br />
             <!--table-->
+            <div class="row" *ngIf="!check()">
+                you have already reserved a room
+            </div>
             <div class="row">
                 <div class="table-responsive">
                     <table class="table table-bordered table-striped table-hover input-sm">
@@ -20,12 +33,12 @@
                         </thead>
                         <tbody>
                             <!-- <tr *ngFor="let x of associates | paginate: { itemsPerPage: 10, currentPage: p }"> -->
-                            <tr *ngFor="let x of reservations | paginate: { itemsPerPage: 7, currentPage: p }">
-                                <td><input name="selectTimeslot" [value]="x.ReservationID" [(ngModel)]="selectedTimeslot" type="radio"/><label>{{x.TimeSlot}}</label></td>
+                            <tr *ngFor="let x of tmpReservations | paginate: { itemsPerPage: 7, currentPage: p }">
+                                <td><label><input name="selectTimeslot" [value]="x.ReservationID" (change)="changeTimeslot()"[(ngModel)]="selectedTimeslot" type="radio"/>{{x.TimeSlot}}</label></td>
                                 <td><input [disabled]="selectedTimeslot!=x.ReservationID"  type="text" [(ngModel)]="x.TeamName"/></td>
                                 <td>
-                                    <select [disabled]="selectedTimeslot!=x.ReservationID"  class="form-control input-sm" >
-                                        <option value=""  disabled selected>--Select--</option>
+                                    <select [disabled]="selectedTimeslot!=x.ReservationID" [(ngModel)]="x.Players" class="form-control input-sm" >
+                                        <option value="0"  disabled selected>--Select--</option>
                                         <option value="2"> 2 </option>
                                         <option value="3"> 3 </option>
                                         <option value="4"> 4 </option>
@@ -34,7 +47,7 @@
                                 </td>
                                 <td>200</td>
                                 <td>
-                                    <button class="btn btn-primary" [disabled]="selectedTimeslot!=x.ReservationID" >Reserve</button>
+                                    <button class="btn btn-primary" (click)="submit(x)" [disabled]="selectedTimeslot!=x.ReservationID" >Reserve</button>
                                     <!-- <div class="btn-group">
                                         <a  class="btn btn-default btn-xs" data-toggle="tab" data-target="#asc_editor" title="Edit"><i class="fa fa-edit"></i></a>
                                         <a  class="btn btn-default btn-xs" title="Delete"><i class="fa fa-trash"></i></a>
@@ -46,10 +59,9 @@
                 </div>
                 
             </div>
-            <div class="row">
-                <div class="pull-right">
-                    <pagination-controls (pageChange)="p = $event"></pagination-controls>
-                </div>
+            <div class="text-center">
+                <pagination-controls (pageChange)="p = $event"></pagination-controls>
+              
             </div>
         </div>
     </div>

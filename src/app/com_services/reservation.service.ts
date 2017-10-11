@@ -8,7 +8,7 @@ export interface Reservation{
     RoomName ?: string,
     TimeSlot ?: string,
     TeamName ?: string,
-    Players ?: string,
+    Players ?: number,
     Amount ?: number,
     TimeElapse ?: number,
     UserName?: string
