@@ -15,6 +15,7 @@ export class ReservationComponent implements OnInit {
   selectedTimeslot:number=0;
   selectedRoom:string="Mystery Room";
   currentUser:CurrentUser={};
+  isAvailed:boolean=false;
   constructor(private svc:ReservationService,private currentuserService:CurrentUserService) { }
 
   ngOnInit() {
@@ -26,16 +27,16 @@ export class ReservationComponent implements OnInit {
     this.currentUser=await this.currentuserService.getAll();
   }
 
-  private async getRecord(){
+  public async getRecord(){
     this.reservations=await this.svc.getAll();
     await this.filterRoom();
-    await this.check();
   }
 
   private async filterRoom(){
     this.selectedTimeslot=0;
     this.tmpReservations=await this.reservations.filter(x=>x.RoomName==this.selectedRoom && x.UserName==null);
     this.changeTimeslot();
+    this.check();
   }
 
   private async changeTimeslot(){
@@ -45,13 +46,12 @@ export class ReservationComponent implements OnInit {
     }
   }
 
-  private async check():Promise<boolean>{
+  private async check(){
     this.reservation=await this.reservations.find(x=>x.UserName==this.currentUser.UserName && x.RoomName==this.selectedRoom);
-    console.log(this.reservation==null);
-    return new Promise<boolean>((resolve)=>resolve( this.reservation==null));
+    this.isAvailed=this.reservation!=null;
   }
 
-  submit(reservation:Reservation){
+  private async submit(reservation:Reservation){
     console.log(reservation);
     if(reservation.TeamName==null||reservation.TeamName==""){
       alert("Team Name is required");
@@ -63,9 +63,11 @@ export class ReservationComponent implements OnInit {
       //computation
       var boolConfirm=confirm("This can not be undone!");
       if(boolConfirm){
-
+        reservation.UserName= await this.currentUser.UserName;
+        reservation.Amount=200.00;
+        await this.svc.put(reservation,reservation.ReservationID.toString());
         //refresh
-        this.getRecord();
+        await this.getRecord();
       }
     }
   }

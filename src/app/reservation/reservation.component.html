@@ -7,25 +7,51 @@
                     <label>Select Room: </label>
                 </div>
                 <div class="col-md-3">
-                    <label><input type="radio" name="selectedRoom" value="Mystery Room" (change)="filterRoom()" [(ngModel)]="selectedRoom" />Mystery Room </label>
+                    <label><input type="radio" name="selectedRoom" value="Mystery Room" (change)="getRecord()" [(ngModel)]="selectedRoom" />Mystery Room </label>
                 </div>
                 <div class="col-md-3">
-                    <label><input type="radio" name="selectedRoom" value="Breakout Room" (change)="filterRoom()" [(ngModel)]="selectedRoom" />Breakout Room </label>
+                    <label><input type="radio" name="selectedRoom" value="Breakout Room" (change)="getRecord()" [(ngModel)]="selectedRoom" />Breakout Room </label>
                 </div>
             </div>
             <br />
             <!--table-->
-            <div class="row" *ngIf="!check()">
-                you have already reserved a room
+            <div class="row" *ngIf="isAvailed">
+                You have already reserved a room for {{selectedRoom}}. <br />
+                <div class="row">
+                    <div class="table-responsive">
+                        <table class="table table-bordered table-striped table-hover input-sm">
+                            <thead>
+                                <tr>
+                                    <th>TimeSlot</th>
+                                    <th>Team Name</th>
+                                    <th># of Players</th>
+                                    <th>Amount</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <!-- <tr *ngFor="let x of associates | paginate: { itemsPerPage: 10, currentPage: p }"> -->
+                                <tr>
+                                    <td><label>{{reservation.TimeSlot}}</label></td>
+                                    <td><label>{{reservation.TeamName}}</label></td>
+                                    <td><label>{{reservation.Players}}</label></td>
+                                    <td><label>{{reservation.Amount}}</label></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    
+                </div>
+                
+                <br />
             </div>
-            <div class="row">
+            <div class="row"  *ngIf="!isAvailed">
                 <div class="table-responsive">
                     <table class="table table-bordered table-striped table-hover input-sm">
                         <thead>
                             <tr>
                                 <!--<th>Associate Id</th>-->
                                 <th>TimeSlot</th>
-                                <th>TeamName</th>
+                                <th>Team Name</th>
                                 <th># of Players</th>
                                 <th>Amount</th>
                                 <th>&nbsp;</th>  
@@ -58,10 +84,10 @@
                     </table>
                 </div>
                 
-            </div>
-            <div class="text-center">
-                <pagination-controls (pageChange)="p = $event"></pagination-controls>
-              
+                <div class="text-center">
+                    <pagination-controls (pageChange)="p = $event"></pagination-controls>
+                
+                </div>
             </div>
         </div>
     </div>
