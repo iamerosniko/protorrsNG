@@ -21,6 +21,9 @@ body {
 }
 
 /*blue2*/
+.navbar-fixed-bottom{
+    min-height:32px !important;
+}
 .navbar-blue_2 {
     background: #0C2C4D; /*002d5b*/
     color: #ffffff;

@@ -10,10 +10,11 @@ import { CurrentUserService,CurrentUser } from '../com_services/currentuser.serv
 export class ReservationComponent implements OnInit {
   reservations:Reservation[]=[];
   tmpReservations:Reservation[]=[];
-  reservation:Reservation={};
+  reservationMystery:Reservation={};
+  reservationBreakout:Reservation={};
   p: number = 1;
   selectedTimeslot:number=0;
-  selectedRoom:string="Mystery Room";
+  selectedRoom:string="Breakout Room";
   currentUser:CurrentUser={};
   isAvailed:boolean=false;
   constructor(private svc:ReservationService,private currentuserService:CurrentUserService) { }
@@ -47,8 +48,10 @@ export class ReservationComponent implements OnInit {
   }
 
   private async check(){
-    this.reservation=await this.reservations.find(x=>x.UserName==this.currentUser.UserName && x.RoomName==this.selectedRoom);
-    this.isAvailed=this.reservation!=null;
+    this.reservationMystery=await this.reservations.find(x=>x.UserName==this.currentUser.UserName && x.RoomName=="Mystery Room");
+    this.reservationBreakout=await this.reservations.find(x=>x.UserName==this.currentUser.UserName && x.RoomName=="Breakout Room");
+    this.isAvailed=(this.reservationMystery!=null &&this.selectedRoom=="Mystery Room")||
+      (this.reservationBreakout!=null &&this.selectedRoom=="Breakout Room");
   }
 
   private async submit(reservation:Reservation){
@@ -60,11 +63,34 @@ export class ReservationComponent implements OnInit {
       alert("# of Players is required");
     }
     else{
+      var boolConfirm=false;var diff=0;
       //computation
-      var boolConfirm=confirm("This can not be undone!");
+      if(this.reservationMystery!=null){
+        diff = this.reservationMystery.ReservationID+25;
+        boolConfirm=(diff==reservation.ReservationID)?
+          confirm("You have reserved a room with same time with Mystery Room.\nContinue?"):
+          confirm("This can not be undone!");
+      }
+      else if(this.reservationBreakout!=null){
+        diff = this.reservationBreakout.ReservationID-25;
+        boolConfirm=(diff==reservation.ReservationID)?
+          confirm("You have reserved a room with same time with Breakout Room.\nContinue?"):
+          confirm("This can not be undone!");
+      }
+      else{
+        boolConfirm=confirm("This can not be undone!");
+      }
+      // if(this.reservation!=null){
+      //   var a = this.reservation.ReservationID;
+      //   var diff = (a>25)?reservation.ReservationID-25:reservation.ReservationID+25;
+
+      //   var boolConfirm=confirm("you have")
+      // }else{
+      //   
+      // }
       if(boolConfirm){
         reservation.UserName= await this.currentUser.UserName;
-        reservation.Amount=200.00;
+        reservation.Amount=250.00;
         await this.svc.put(reservation,reservation.ReservationID.toString());
         //refresh
         await this.getRecord();

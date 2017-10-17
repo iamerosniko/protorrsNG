@@ -3,26 +3,29 @@
         <div class="container">
             <br />
             <div class="row">
-                <div class="col-md-3">
+                <!-- <div class="col-md-3">
                     <label>Select Room: </label>
                 </div>
                 <div class="col-md-3">
                     <label><input type="radio" name="selectedRoom" value="Mystery Room" (change)="getRecord()" [(ngModel)]="selectedRoom" />Mystery Room </label>
-                </div>
+                </div> -->
                 <div class="col-md-3">
-                    <label><input type="radio" name="selectedRoom" value="Breakout Room" (change)="getRecord()" [(ngModel)]="selectedRoom" />Breakout Room </label>
+                    <label>
+                        <!-- <input type="radio" name="selectedRoom" value="Breakout Room" (change)="getRecord()" [(ngModel)]="selectedRoom" /> -->
+                        Breakout Room 
+                    </label>
                 </div>
             </div>
             <br />
             <!--table-->
             <div class="row" *ngIf="isAvailed">
-                You have already reserved a room for {{selectedRoom}}. <br />
                 <div class="row">
                     <div class="table-responsive">
                         <table class="table table-bordered table-striped table-hover input-sm">
                             <thead>
                                 <tr>
-                                    <th>TimeSlot</th>
+                                    <th>Room Name</th>
+                                    <th>Time Slot</th>
                                     <th>Team Name</th>
                                     <th># of Players</th>
                                     <th>Amount</th>
@@ -30,11 +33,19 @@
                             </thead>
                             <tbody>
                                 <!-- <tr *ngFor="let x of associates | paginate: { itemsPerPage: 10, currentPage: p }"> -->
-                                <tr>
-                                    <td><label>{{reservation.TimeSlot}}</label></td>
-                                    <td><label>{{reservation.TeamName}}</label></td>
-                                    <td><label>{{reservation.Players}}</label></td>
-                                    <td><label>{{reservation.Amount}}</label></td>
+                                <tr *ngIf="reservationMystery!=null">
+                                    <td><label>{{reservationMystery.RoomName}}</label></td>
+                                    <td><label>{{reservationMystery.TimeSlot}}</label></td>
+                                    <td><label>{{reservationMystery.TeamName}}</label></td>
+                                    <td><label>{{reservationMystery.Players}}</label></td>
+                                    <td><label>{{reservationMystery.Amount}}</label></td>
+                                </tr>
+                                <tr *ngIf="reservationBreakout!=null">
+                                    <td><label>{{reservationBreakout.RoomName}}</label></td>
+                                    <td><label>{{reservationBreakout.TimeSlot}}</label></td>
+                                    <td><label>{{reservationBreakout.TeamName}}</label></td>
+                                    <td><label>{{reservationBreakout.Players}}</label></td>
+                                    <td><label>{{reservationBreakout.Amount}}</label></td>
                                 </tr>
                             </tbody>
                         </table>
@@ -50,7 +61,7 @@
                         <thead>
                             <tr>
                                 <!--<th>Associate Id</th>-->
-                                <th>TimeSlot</th>
+                                <th>Time Slot</th>
                                 <th>Team Name</th>
                                 <th># of Players</th>
                                 <th>Amount</th>
@@ -61,7 +72,7 @@
                             <!-- <tr *ngFor="let x of associates | paginate: { itemsPerPage: 10, currentPage: p }"> -->
                             <tr *ngFor="let x of tmpReservations | paginate: { itemsPerPage: 7, currentPage: p }">
                                 <td><label><input name="selectTimeslot" [value]="x.ReservationID" (change)="changeTimeslot()"[(ngModel)]="selectedTimeslot" type="radio"/>{{x.TimeSlot}}</label></td>
-                                <td><input [disabled]="selectedTimeslot!=x.ReservationID"  type="text" [(ngModel)]="x.TeamName"/></td>
+                                <td><input style="width: 100%" [disabled]="selectedTimeslot!=x.ReservationID"  type="text" [(ngModel)]="x.TeamName"/></td>
                                 <td>
                                     <select [disabled]="selectedTimeslot!=x.ReservationID" [(ngModel)]="x.Players" class="form-control input-sm" >
                                         <option value="0"  disabled selected>--Select--</option>
@@ -69,9 +80,10 @@
                                         <option value="3"> 3 </option>
                                         <option value="4"> 4 </option>
                                         <option value="5"> 5 </option>
+                                        <option value="5"> 6 </option>
                                     </select>
                                 </td>
-                                <td>200</td>
+                                <td>250</td>
                                 <td>
                                     <button class="btn btn-primary" (click)="submit(x)" [disabled]="selectedTimeslot!=x.ReservationID" >Reserve</button>
                                     <!-- <div class="btn-group">
