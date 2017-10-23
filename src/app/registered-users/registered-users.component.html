@@ -1,0 +1,36 @@
+<div class="tab-content">
+  <div id="asc_default" class="tab-pane fade in active">
+      <div class="container">
+          <br />
+          <div class="row">
+              <div class="table-responsive">
+                  <table class="table table-bordered table-striped table-hover input-sm">
+                      <thead>
+                          <tr>
+                              <!--<th>Associate Id</th>-->
+                              <th>Time Slot</th>
+                              <th>Team Name</th>
+                              <th># of Players</th>
+                          </tr>
+                      </thead>
+                      <tbody>
+                          <!-- <tr *ngFor="let x of associates | paginate: { itemsPerPage: 10, currentPage: p }"> -->
+                          <tr *ngFor="let x of reservations | paginate: { itemsPerPage: 15, currentPage: p }">
+                              <td><label>{{x.TimeSlot}}</label></td>
+                              <td><label>{{x.TeamName}}</label></td>
+                              <td><label>{{x.Players}}
+                              </label>
+                              </td>
+                          </tr>
+                      </tbody>
+                  </table>
+              </div>
+              
+              <div class="text-center">
+                  <pagination-controls (pageChange)="p = $event"></pagination-controls>
+              
+              </div>
+          </div>
+      </div>
+  </div>
+</div>

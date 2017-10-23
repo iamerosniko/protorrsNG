@@ -9,11 +9,10 @@
         <a class="navbar-brand" >DIS Halloween Time Slot Reservation</a>
       </div>
       <div class="navbar-collapse collapse">
-        <!-- <ul class="nav navbar-nav">
-          <li *ngIf="isVisible('')" [ngClass]="{'active' : routeStr=='/search'}"><a href="#p1" data-toggle="tab" (click)="routeOnly('search')" class="lnk-search"><i class="fa fa-search"></i>&nbsp;Search</a></li>
-          <li *ngIf="isVisible('skillset')" [ngClass]="{'active' : routeStr=='/skillset'}"><a href="#p2" (click)="routeOnly('skillset')" data-toggle="tab" class="lnk-skillset"><i class="fa fa-cogs"></i>&nbsp;Skillset</a></li>
-          <li *ngIf="isVisible('')" [ngClass]="{'active' : routeStr.includes('/maintenance')}"><a href="#p3" data-toggle="tab" (click)="routeOnly('maintenance')"  class="lnk-maintenance"><i class="fa fa-wrench"></i>&nbsp;Maintenance</a></li>
-        </ul> -->
+        <ul class="nav navbar-nav">
+          <li [routerLinkActive]="['active']"><a [routerLink]="['./reservation']" class="lnk-applications"><i></i>&nbsp;Time Reservations</a></li>
+          <li *ngIf="isAdmin()" [routerLinkActive]="['active']"><a [routerLink]="['./reserved-users']" class="lnk-maintenance"><i></i>&nbsp;Reserved Timeslots</a></li>
+        </ul>
         <!-- <ul class="nav navbar-nav navbar-right">
           <li><a href="#"><i class="fa fa-user-circle"></i><span *ngIf="user!=null">&nbsp;Hello, {{fullName}}!</span></a></li>
         </ul> -->
