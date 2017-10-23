@@ -11,6 +11,7 @@
                               <th>Time Slot</th>
                               <th>Team Name</th>
                               <th># of Players</th>
+                              <th>Username</th>
                           </tr>
                       </thead>
                       <tbody>
@@ -18,9 +19,8 @@
                           <tr *ngFor="let x of reservations | paginate: { itemsPerPage: 15, currentPage: p }">
                               <td><label>{{x.TimeSlot}}</label></td>
                               <td><label>{{x.TeamName}}</label></td>
-                              <td><label>{{x.Players}}
-                              </label>
-                              </td>
+                              <td><label>{{x.Players}}</label></td>
+                              <td><label>{{x.UserName}}</label></td>
                           </tr>
                       </tbody>
                   </table>
